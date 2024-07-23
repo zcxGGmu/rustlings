@@ -5,7 +5,24 @@ struct Point {
 
 enum Message {
     // TODO: Implement the message variant types based on their usage below.
+    Resize{ width: u64, height: u64 },
+    Move(Point),
+    Echo(String),
+    ChangeColor(u8, u8, u8),
+    Quit,
 }
+
+/*
+        state.process(Message::Resize {
+            width: 10,
+            height: 30,
+        });
+        state.process(Message::Move(Point { x: 10, y: 15 }));
+        state.process(Message::Echo(String::from("Hello world!")));
+        state.process(Message::ChangeColor(255, 0, 255));
+        state.process(Message::Quit);
+
+*/
 
 struct State {
     width: u64,
@@ -39,9 +56,47 @@ impl State {
         self.quit = true;
     }
 
+    /*
+        state.process(Message::Resize {
+            width: 10,
+            height: 30,
+        });
+        state.process(Message::Move(Point { x: 10, y: 15 }));
+        state.process(Message::Echo(String::from("Hello world!")));
+        state.process(Message::ChangeColor(255, 0, 255));
+        state.process(Message::Quit);
+
+        assert_eq!(state.width, 10);
+        assert_eq!(state.height, 30);
+        assert_eq!(state.position.x, 10);
+        assert_eq!(state.position.y, 15);
+        assert_eq!(state.message, "Hello world!");
+        assert_eq!(state.color, (255, 0, 255));
+        assert!(state.quit);
+    */
+
     fn process(&mut self, message: Message) {
         // TODO: Create a match expression to process the different message
         // variants using the methods defined above.
+        match message {
+            Message::Resize { width, height } => {
+                self.width = width;
+                self.height = height;
+            },
+            Message::Move(point) => {
+                self.position.x = point.x;
+                self.position.y = point.y;
+            },
+            Message::Echo(str) => {
+                self.message = str;
+            },
+            Message::ChangeColor(r, g, b) => {
+                self.color = (r, g, b);
+            },
+            Message::Quit => {
+                self.quit = true;
+            },
+        }
     }
 }
 

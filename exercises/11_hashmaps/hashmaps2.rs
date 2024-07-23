@@ -28,10 +28,18 @@ fn fruit_basket(basket: &mut HashMap<Fruit, u32>) {
         Fruit::Pineapple,
     ];
 
+    /*
+        assert_eq!(*basket.get(&Fruit::Apple).unwrap(), 4);
+        assert_eq!(*basket.get(&Fruit::Mango).unwrap(), 2);
+        assert_eq!(*basket.get(&Fruit::Lychee).unwrap(), 5);
+    */
     for fruit in fruit_kinds {
         // TODO: Insert new fruits if they are not already present in the
         // basket. Note that you are not allowed to put any type of fruit that's
         // already present!
+        if !basket.contains_key(&fruit) {
+            basket.insert(fruit, 1);
+        }
     }
 }
 
