@@ -11,7 +11,7 @@
 // context. For this exercise, that context is the potential errors which
 // can be returned in a `Result`.
 
-use core::error;
+use std::error;
 use std::error::Error;
 use std::fmt;
 
